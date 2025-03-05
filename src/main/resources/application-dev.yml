@@ -1,0 +1,42 @@
+#########################################################################
+# H2 데이터베이스를 활용한 개발 환경 설정
+#########################################################################
+
+# 프로파일 명칭 지정
+spring:
+  config:
+    activate:
+      on-profile:
+        - dev
+  # H2 인메모리 데이터베이스 연결 정보 
+  datasource:
+    url: jdbc:h2:meme:demo;MODE=MySQL;DB_CLOSE_DELAY=-1
+    username: sa
+    driver-class-name: org.h2.Driver
+  # 스키마 버전 관리 비활성화  
+  flyway:
+    enabled: false
+  # SQL 초기 데이터 설정
+  sql:
+    init:
+      # ALWAYS:애플리케이션 실행 때마다 스크립트 실행, EMBEDDED:내장 데이터베이스 사용시 스크립트 실행, NEVER:스크립트 실행하지 않음
+      mode: EMBEDDED
+      schema-locations:
+        - classpath:h2/scripts/schema.sql
+  # H2 콘솔 접속 정보(경로, 사용여부) 설정
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
+
+# H2 데이터베이스를 사용한 개발 환경시 적용할 로깅 레벨
+logging:
+  level:
+    root: INFO
+    web: DEBUG
+  
+# 내장 톰캣 서버 포트 번호 변경
+server:
+  port: 80
+
+
